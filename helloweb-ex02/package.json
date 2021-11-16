@@ -2,6 +2,11 @@
   "dependencies": {
     "express": "^4.17.1"
   },
+  
+  "scripts": {
+    "start": "node index.js",
+    "debug": "nodemon index.js"
+  },
   "devDependencies": {
     "ejs": "^3.1.6",
     "nodemon": "^2.0.15"
