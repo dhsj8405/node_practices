@@ -4,6 +4,7 @@ const express = require('express');
 
 const mainRouter = require('./routes/main');
 const helloRouter = require('./routes/hello');
+const userRouter = require('./routes/user');
 
 const port = 8080;
 
@@ -19,12 +20,13 @@ const application = express()
     .set('view engine', 'ejs')
     //4. request router 
     .all('*',function(req, res, next){      //필터비슷함 : 주로 인증에서 쓰임
-        req.locals.req = req;
-        req.locals.res = res;
+        res.locals.req = req;
+        res.locals.res = res;
         next(); //꼭해줘야 다음 라우터로 넘어감 
     })
     .use('/', mainRouter)
     .use('/hello', helloRouter)
+    .use('/user', userRouter);
 
 // Server Setup
 http.createServer(application)
