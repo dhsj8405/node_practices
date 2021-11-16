@@ -1,7 +1,7 @@
 module.exports ={
     sum: function(){
         var sum = 0;    
-        
+
         Array.from(arguments).forEach(function(e){      //유사배열을 배열처럼 만들어줌
             sum += e;
         }) 
