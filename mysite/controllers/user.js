@@ -1,5 +1,5 @@
-module.export = {
-    index: function(req, res) {
+module.exports = {
+    join: function(req, res) {
         res.render('user/join');
     }
 }

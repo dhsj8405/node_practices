@@ -3,6 +3,7 @@ const path = require('path');       //디렉토리관련된것들
 const express = require('express');
 const dotenv = require('dotenv');
 
+
 // 1. Environment Variables
 dotenv.config({path: path.join(__dirname, 'config/app.env')});
 
@@ -20,7 +21,9 @@ const application = express()
     .use(express.json())                      // application/json
     // 4-3. view engine setup
     .set('views', path.join(__dirname, 'views'))
-    .set('view engine', 'ejs');
+    .set('view engine', 'ejs')
+        // 4. request router 
+   
  
 // 5. Application Router Setup
 applicationRouter.setup(application);

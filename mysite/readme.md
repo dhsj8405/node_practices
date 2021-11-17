@@ -3,18 +3,18 @@
 #### 설치패키지
 
 ```bash
-[mysite] $ npm i express o2
-[mysite] $ npm i ejs    o3
+[mysite] $ npm i express    o2
+[mysite] $ npm i ejs        o3
 [mysite] $ npm i mysql2
 [mysite] $ npm i express-session
 [mysite] $ npm i sequelize
-[mysite] $ npm i dotenv o5
+[mysite] $ npm i dotenv      o5
 [mysite] $ npm i multer 
 [mysite] $ npm i winston
 [mysite] $ npm i winston-daily-rotate-file
 [mysite] $ npm i moment
 
-[mysite] $ npm i -D nodemon o4
+[mysite] $ npm i -D nodemon   o4
 [mysite] $ npm i -D mocha
 [mysite] $ npm i -D chai
 
