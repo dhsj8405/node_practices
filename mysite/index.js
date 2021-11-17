@@ -6,26 +6,26 @@ const dotenv = require('dotenv');
 // 1. Environment Variables
 dotenv.config({path: path.join(__dirname, 'config/app.env')});
 
-// Application Setup
-const application = express()
-    //1. static resources
-    .use(express.static(path.join(__dirname, 'public')))
-    //2. request body parser
-    .use(express.urlencoded({extends: true})) // application/x-www-form-urlencoded
-    .use(express.json())                      // application/json
-    //3. view engine setup
-    .set('views', path.join(__dirname, 'views'))
-    .set('view engine', 'ejs')
-    //4. request router 
-    .all('*',function(req, res, next){      //필터비슷함 : 주로 인증에서 쓰임
-        res.locals.req = req;
-        res.locals.res = res;
-        next(); //꼭해줘야 다음 라우터로 넘어감 
-    });
-  //.use('/', emaillistRouter)
- 
+// 2. Application Routers
+const applicationRouter = require('../routes')
 
-// Server Setup
+// 3. Logger
+
+// 4. Application Setup
+const application = express()
+    // 4-1. static resources
+    .use(express.static(path.join(__dirname, process.env.STATIC_RESOURCE_DIRECTORY)))
+    // 4-2. request body parser
+    .use(express.urlencoded({extended: true})) // application/x-www-form-urlencoded
+    .use(express.json())                      // application/json
+    // 4-3. view engine setup
+    .set('views', path.join(__dirname, 'views'))
+    .set('view engine', 'ejs');
+ 
+// 5. Application Router Setup
+applicationRouter.setup(application);
+
+// 6. Server Setup
 http.createServer(application)
     .on('listening', function(){
         console.info(`http server runs on ${process.env.PORT}`)
