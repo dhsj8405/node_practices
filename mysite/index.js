@@ -11,6 +11,7 @@ dotenv.config({path: path.join(__dirname, 'config/app.env')});
 const { applicationRouter } = require('./routes')
 
 // 3. Logger
+const logger = require('./logging');
 
 // 4. Application Setup
 const application = express()
@@ -31,16 +32,16 @@ applicationRouter.setup(application);
 // 6. Server Setup
 http.createServer(application)
     .on('listening', function(){
-        console.info(`http server runs on ${process.env.PORT}`)
+        logger.info(`http server runs on ${process.env.PORT}`)
     })
     .on('error', function(error){
         switch(error.code){
             case 'EACCESS':
-                console.error(`${process.env.PORT} requires privileges`);
+                logger.error(`${process.env.PORT} requires privileges`);
                 process.exit(1);        //1: 비정상종료일때, 0: 정상종료
                 break;
             case 'EADDRINUSE':
-                console.error(`${process.env.PORT} is already in use`);
+                logger.error(`${process.env.PORT} is already in use`);
                 process.exit(1);
                 break;
             default:
