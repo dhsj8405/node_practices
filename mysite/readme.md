@@ -5,9 +5,9 @@
 ```bash
 [mysite] $ npm i express    o2
 [mysite] $ npm i ejs        o3
-[mysite] $ npm i mysql2
+[mysite] $ npm i mysql2     o8
 [mysite] $ npm i express-session
-[mysite] $ npm i sequelize
+[mysite] $ npm i sequelize      o9
 [mysite] $ npm i dotenv      o5
 [mysite] $ npm i multer 
 [mysite] $ npm i winston          o6
