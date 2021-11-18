@@ -1,54 +1,58 @@
 const http = require('http');
-const path = require('path');       //디렉토리관련된것들 
+const path = require('path');
 const express = require('express');
+const session = require('express-session');
 const dotenv = require('dotenv');
 
-
 // 1. Environment Variables
-dotenv.config({path: path.join(__dirname, 'config/app.env')});
+dotenv.config({path: path.join(__dirname, 'config/app.env') });
+dotenv.config({path: path.join(__dirname, 'config/db.env') });
 
 // 2. Application Routers
-const { applicationRouter } = require('./routes')
+const { applicationRouter } = require('./routes');
+const { SIGTERM } = require('constants');
 
 // 3. Logger
 const logger = require('./logging');
 
 // 4. Application Setup
 const application = express()
-    // 4-1. static resources
-    .use(express.static(path.join(__dirname, process.env.STATIC_RESOURCE_DIRECTORY)))
+    // 4-1. Session Environment
+    .use(session({
+        secret: "mysite-session",
+        resave: false
+    }))
     // 4-2. request body parser
-    .use(express.urlencoded({extended: true})) // application/x-www-form-urlencoded
-    .use(express.json())                      // application/json
-    // 4-3. view engine setup
+    .use(express.urlencoded({extended: true}))  // application/x-www-form-urlencoded
+    .use(express.json())                        // application/json
+    // 4-3. Multipart
+
+    // 4-4. static resources
+    .use(express.static(path.join(__dirname, process.env.STATIC_RESOURCES_DIRECTORY)))
+    // 4-5. view engine setup
     .set('views', path.join(__dirname, 'views'))
-    .set('view engine', 'ejs')
-        // 4. request router 
-   
- 
+    .set('view engine', 'ejs');
+
 // 5. Application Router Setup
 applicationRouter.setup(application);
 
 // 6. Server Setup
 http.createServer(application)
     .on('listening', function(){
-        logger.info(`http server runs on ${process.env.PORT}`)
+        logger.info(`http server runs on ${process.env.PORT}`);
     })
     .on('error', function(error){
-        switch(error.code){
+        switch(error.code) {
             case 'EACCESS':
                 logger.error(`${process.env.PORT} requires privileges`);
-                process.exit(1);        //1: 비정상종료일때, 0: 정상종료
+                process.exit(1);
                 break;
             case 'EADDRINUSE':
                 logger.error(`${process.env.PORT} is already in use`);
                 process.exit(1);
                 break;
             default:
-                throw error;
+                throw error;        
         }
     })
     .listen(process.env.PORT);
-
-
-    // index.js는 한번만 실행 : 라우터 요청할 때 마다 실행
