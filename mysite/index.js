@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 dotenv.config({path: path.join(__dirname, 'config/app.env')});
 
 // 2. Application Routers
-const applicationRouter = require('../routes')
+const { applicationRouter } = require('./routes')
 
 // 3. Logger
 
@@ -48,3 +48,6 @@ http.createServer(application)
         }
     })
     .listen(process.env.PORT);
+
+
+    // index.js는 한번만 실행 : 라우터 요청할 때 마다 실행
