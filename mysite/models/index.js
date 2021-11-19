@@ -22,4 +22,4 @@ Guestbook.sync({
 });
 
 // Export Mapping Object
-module.exports = {User,Guestbook};
+module.exports = {User, Guestbook};

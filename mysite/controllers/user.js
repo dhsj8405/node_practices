@@ -28,23 +28,22 @@ module.exports = {
     _login: async function(req, res, next) {
         try {
             const user = await models.User.findOne({
-                attributes: ['no', 'name', 'role'],
-                where: {
-                    email: req.body.email,
-                    password: req.body.password
-                }
+              attributes: ['no', 'name', 'role'],
+              where: {
+                  email: req.body.email,
+                  password: req.body.password
+              }  
             });
             
-            if(user == null){
+            if(user == null) {
                 res.render('user/login', Object.assign(req.body, {result: 'fail'}));
                 return;
             }
 
-            // 세션처리
+            // 서션처리
             req.session.authUser = user;
 
             res.redirect('/');
-
         } catch(e) {
             next(e);
         }
@@ -53,24 +52,24 @@ module.exports = {
         try {
             await req.session.destroy();
             res.redirect('/');
-        }catch(e){
+        } catch(e) {
             next(e);
         }
     },
-    updeat: async function(req, res, next){
+    update: async function(req, res, next) {
         try {
             const user = await models.User.findOne({
-                attributes :['no','email','name','gender'],
+                attributes: ['no', 'email', 'name', 'gender'],
                 where: {
                     no: req.session.authUser.no
                 }
             });
-            res.render('user/update', {user});
-        }catch(e){
+            res.render('user/update', {user})
+        } catch(e) {
             next(e);
-        }
+        }        
     },
-    _update: async function(req, res, next){
+    _update: async function(req, res, next) {
 
     }
 }

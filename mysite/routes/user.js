@@ -10,5 +10,4 @@ router.route('/login').post(controller._login);
 router.route('/logout').get(controller.logout);
 router.route('/update').get(controller.update);
 
-
 module.exports = router;

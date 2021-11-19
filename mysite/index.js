@@ -20,8 +20,8 @@ const application = express()
     // 4-1. Session Environment
     .use(session({
         secret: "mysite-session",
-        resave: false
-    }))
+        resave: false 
+    })) 
     // 4-2. request body parser
     .use(express.urlencoded({extended: true}))  // application/x-www-form-urlencoded
     .use(express.json())                        // application/json
